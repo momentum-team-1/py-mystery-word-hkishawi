@@ -2,6 +2,7 @@
 
 import string
 import random
+random.random()
 
 def load_words():
     file = open("words.txt")
@@ -12,6 +13,32 @@ def load_words():
         lowercase_words.append(word.lower())
     print(random.choice(lowercase_words[:]))
     return random.choice(lowercase_words)
+
+#filter out easy words to use in level 1
+def easy_words(load_words):
+    easy_word_list = []
+    for word in load_words():
+        if len(word) >= 4 and len(word) <= 6:
+            easy_word_list.append(word)
+        return easy_word_list
+
+def hard_words(load_words):
+    hard_word_list = []
+    for word in load_words():
+        if len(word) >= 7 and len(word) <=15:
+            hard_word_list.append(word)
+        return hard_word_list
+
+def choose_level(prompt, options):
+    while True: 
+        try: 
+            str__input = input(prompt)
+            if str_input not in options: 
+                raise ValueError
+            return_input
+            except ValueError: 
+                print("input invalid")
+input_option("choose a level: (e)asy or (h)ard?", ["e", "h"]) 
 
 
 def myst_word_game():
@@ -26,7 +53,7 @@ def myst_word_game():
     print(len(word) * " _ ") #the length of the word will be rep by _
     while guessed == False and tries > 0: #while word is not guessed and player is not out of tries then:
         print('u have' + str(tries) + 'tries')
-        guess = input('please enter 1 letter or the full word').lower() #input of what the player inputs which is made into lowercase
+        guess = input('please enter 1 letter or the full word: ').lower() #input of what the player inputs which is made into lowercase
     #player could guess correct letter, guess word, not input anything, input non-alphabet, input wrong letter
         if len(guess) == 1: #if length of players guess is 1 char
             if guess not in alphabet: 
@@ -51,25 +78,31 @@ def myst_word_game():
                 tries -= 1
         else: #otherwise player entered word that is too long 
             print('incorrect word length')
-            tries -= 
+            tries -= 1
 
 #This answers the problem to updating the underscore
-        game_status = ''
-        if guessed == False:
-            for letter in word:
-                if letter in letters_guessed:
-                    status += letter
+        game_status = '' #where status will be updated 
+        if guessed == False: #if guessed letters is not complete game will be ongoing 
+            for letter in word: 
+                if letter in letters_guessed: 
+                    status += letter #this updates the status plus the letter
                 else: 
-                    status += '_'
+                    status += '_' #this will keep the unsolved letters  as"_"
             print(status)
-        if status == word:
+        if status == word: #however if the word is solved then:
             print ('u win!')
-            guessed = True
-        elif tries == 0: 
+            guessed = True #this ends the game and says the word is solved
+        elif tries == 0: #player runs out of turns 
             print('ur out of tries. u lose.')
-
 myst_word_game()
 
+
+def main():
+    answer = choose_level()
+    return myst_word_game()
+
+if __name__ == '__main__':
+    main()
 
 # word_list = load_words()
 
