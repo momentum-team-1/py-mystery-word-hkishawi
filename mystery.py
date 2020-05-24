@@ -1,3 +1,5 @@
+#CODE DOES NOT LOOP BACK AFTER PLAYER HAS ENTERED INPUT
+
 import string
 import random
 
@@ -8,18 +10,75 @@ def load_words():
     lowercase_words = []
     for word in word_list:
         lowercase_words.append(word.lower())
-    # print(lowercase_words[:50])
-    return word_list
-load_words()
+    print(random.choice(lowercase_words[:]))
+    return random.choice(lowercase_words)
 
-word_list = load_words()
 
-def choose_word(wordList):
-    return random.choice(word_list)
-    print(random.choice(word_list[:]))
-
-def word_guessed(myst_word, letters_guessed):
+def myst_word_game():
+   #store data here 
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    word = load_words()
+    letters_guessed = []
+    tries = 10
+    guessed = False #this tells machine that game has not ended until words are solved or out of tries in status 
     
+    print("the word contains", len(word), 'letters.')
+    print(len(word) * " _ ") #the length of the word will be rep by _
+    while guessed == False and tries > 0: #while word is not guessed and player is not out of tries then:
+        print('u have' + str(tries) + 'tries')
+        guess = input('please enter 1 letter or the full word').lower() #input of what the player inputs which is made into lowercase
+    #player could guess correct letter, guess word, not input anything, input non-alphabet, input wrong letter
+        if len(guess) == 1: #if length of players guess is 1 char
+            if guess not in alphabet: 
+                print('enter a letter!')
+            elif guess in letters_guessed: #if 
+                print('u already used that letter!')
+            elif guess not in word: #guess that's not in word will count as guessed letter and player loses a try
+                print('that letter is incorrect')
+                letters_guessed.append(guess)
+                tries -= 1
+            elif guess is word: #if guess is in the word "the letter guessed is added to letters guessed" UNDERSCORE NEEDS TO UPDATE SOMEHOW!
+                print ('letter is in word')
+                letters_guessed.append(guess)
+            else: 
+                print('placeholder')
+        elif len(guess) == len(word): #if lenth of guess = word 
+            if guess == word: #and if the guess is in fact the word
+                print('word guessed!')
+                guessed = True
+            else: #otherwise 
+                print('incorrect word!')
+                tries -= 1
+        else: #otherwise player entered word that is too long 
+            print('incorrect word length')
+            tries -= 
+
+#This answers the problem to updating the underscore
+        game_status = ''
+        if guessed == False:
+            for letter in word:
+                if letter in letters_guessed:
+                    status += letter
+                else: 
+                    status += '_'
+            print(status)
+        if status == word:
+            print ('u win!')
+            guessed = True
+        elif tries == 0: 
+            print('ur out of tries. u lose.')
+
+myst_word_game()
+
+
+# word_list = load_words()
+
+# def choose_word(wordList):
+#     return random.choice(word_list)
+#     print(random.choice(word_list[:]))
+
+# def word_guessed(myst_word, letters_guessed):
+
 # def random_word(word_list):
 #     file = open("words.txt")
 #     text = file.read()
@@ -71,20 +130,6 @@ def word_guessed(myst_word, letters_guessed):
 #             display.append('_')
 #     return ' '.join(display)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # def display_word(word, guesses):
 #     letters = []
 #     for letter in word:
@@ -92,11 +137,6 @@ def word_guessed(myst_word, letters_guessed):
 
 #     user_display = " ".join(letters)
 #     return user.display.upper()
-
-
-
-
-
 
 # word = "dinosaur"
 # current_guesses = []
