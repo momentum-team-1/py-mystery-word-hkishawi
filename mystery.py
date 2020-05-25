@@ -11,42 +11,52 @@ def load_words():
     lowercase_words = []
     for word in word_list:
         lowercase_words.append(word.lower())
-    print(random.choice(lowercase_words[:]))
-    return random.choice(lowercase_words)
+    # print(random.choice(lowercase_words[:]))
+    # return random.choice(lowercase_words)
+    return (lowercase_words)
 
 #filter out easy words to use in level 1
-def easy_words(load_words):
+def easy_words():
     easy_word_list = []
     for word in load_words():
-        if len(word) >= 4 and len(word) <= 6:
+        if len(word) >= 2 and len(word) <= 6:
             easy_word_list.append(word)
-            print(easy_word_list)
-        return easy_word_list
+            print(random.choice(easy_word_list[:]))
+        return random.choice(easy_word_list)
 
-def hard_words(load_words):
-    hard_word_list = []
-    for word in load_words():
-        if len(word) >= 7 and len(word) <=15:
-            hard_word_list.append(word)
-        return hard_word_list
+# easy_words(load_words)
+# def hard_words(load_words):
+#     hard_word_list = []
+#     for word in load_words():
+#         if len(word) >= 7 and len(word) <=15:
+#             hard_word_list.append(word)
+#         return hard_word_list
 
-def choose_level(prompt, options):
-    while True: 
-        try: 
-            str__input = input(prompt)
-            if str_input not in options: 
-                raise ValueError
-            return_input
-            except ValueError: 
-                print("input invalid")
-input_option("choose a level: (e)asy or (h)ard?", ["e", "h"]) 
+def choose_level(user_input):
+    level = input("choose difficulty: (e)asy or (h)ard")
+    if level == 'e':
+        answer = easy_words()
+    elif level == 'h':
+        answer = hard_words()
+    return answer
+
+# def choose_level(prompt, options):
+#     while True: 
+#         try: 
+#             str__input = input(prompt)
+#             if str_input not in options: 
+#                 raise ValueError
+#             return_input
+#             except ValueError: 
+#                 print("input invalid")
+# input_option("choose a level: (e)asy or (h)ard?", ["e", "h"]) 
 
 def myst_word_game():
    #store data here 
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
-    word = load_words()
+    word = easy_words()
     letters_guessed = []
-    tries = 50000
+    tries = 5
     guessed = False #this tells machine that game has not ended until words are solved or out of tries in status 
     
     print("the word contains", len(word), 'letters.')
@@ -58,27 +68,34 @@ def myst_word_game():
         if len(guess) == 1: #if length of players guess is 1 char
             if guess not in alphabet: 
                 print('enter a letter!')
+                print('guessed letters: ', letters_guessed)
             elif guess in letters_guessed: #if 
                 print('u already used that letter!')
+                print('guessed letters: ', letters_guessed)
             elif guess not in word: #guess that's not in word will count as guessed letter and player loses a try
                 print('that letter is incorrect')
+                print('guessed letters: ', letters_guessed)
                 letters_guessed.append(guess)
                 tries -= 1
             elif guess in word: #if guess is in the word "the letter guessed is added to letters guessed" UNDERSCORE NEEDS TO UPDATE SOMEHOW!
                 print ('letter is in word')
                 letters_guessed.append(guess)
+                print('guessed letters: ', letters_guessed)
             else: 
                 print('placeholder')
         elif len(guess) == len(word): #if lenth of guess = word 
             if guess == word: #and if the guess is in fact the word
                 print('word guessed!')
                 guessed = True
+                print('guessed letters: ', letters_guessed)
             else: #otherwise 
                 print('incorrect word!')
                 tries -= 1
+                print('guessed letters: ', letters_guessed)
         else: #otherwise player entered word that is too long 
             print('incorrect word length')
             tries -= 1
+            print('guessed letters: ', letters_guessed)
 
 #This answers the problem to updating the underscore
         game_status = '' #where status will be updated 
@@ -102,7 +119,7 @@ def main():
     return myst_word_game()
 
 if __name__ == '__main__':
-    main()
+    myst_word_game()
 
 # word_list = load_words()
 
