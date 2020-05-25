@@ -13,7 +13,6 @@ def load_words():
         lowercase_words.append(word.lower())
     # print(random.choice(lowercase_words[:]))
     return (lowercase_words)
-    # return (lowercase_words)
 
 #filter out easy words to use in level 1
 def easy_words():
@@ -21,27 +20,28 @@ def easy_words():
     for word in load_words():
         if len(word) >= 2 and len(word) <= 6:
             easy_word_list.append(word)
-            print(random.choice(easy_word_list[:]))
-    return random.choice(easy_word_list)
+            # print(random.choice(easy_word_list[:]))
+            # print(word)
+    return(easy_word_list)
  
-
 def hard_words():
     hard_word_list = []
     for word in load_words():
         if len(word) >= 7:
             hard_word_list.append(word)
-            print(random.choice(hard_word_list[:]))
-    return random.choice(hard_word_list)
+            # print(random.choice(hard_word_list[:]))
+            # print(hard_word_list)
+    return(hard_word_list)
 
 def choose_level():
-    level = input("choose difficulty: (e)asy or (h)ard")
+    level = input("choose difficulty: (e)asy or (h)ard ")
     level = level.lower()
     if level == 'e':
         answer = random.choice(easy_words())
     elif level == 'h':
         answer = random.choice(hard_words())
-    return answer
-choose_level()
+    return (answer)
+
 
 # def choose_level(prompt, options):
 #     while True: 
@@ -59,15 +59,15 @@ def myst_word_game():
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     word = choose_level()
     letters_guessed = []
-    tries = 5
+    tries = 10
     guessed = False #this tells machine that game has not ended until words are solved or out of tries in status 
     # for word in word_list:
 
-    level = choose_level()
-    if level == 'e':
-        word = easy_words()
-    elif level == 'h': 
-        word = hard_words()
+    # level = choose_level()
+    # if level == 'e':
+    #     word = easy_words()
+    # elif level == 'h': 
+    #     word = hard_words()
     
     print("the word contains", len(word), 'letters.')
     print(len(word) * " _ ") #the length of the word will be rep by _
@@ -121,6 +121,7 @@ def myst_word_game():
             guessed = True #this ends the game and says the word is solved
         elif tries == 0: #player runs out of turns 
             print('ur out of tries. u lose.')
+            
 myst_word_game()
 
 
