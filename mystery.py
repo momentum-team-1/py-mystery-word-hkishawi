@@ -20,6 +20,7 @@ def easy_words(load_words):
     for word in load_words():
         if len(word) >= 4 and len(word) <= 6:
             easy_word_list.append(word)
+            print(easy_word_list)
         return easy_word_list
 
 def hard_words(load_words):
@@ -29,23 +30,23 @@ def hard_words(load_words):
             hard_word_list.append(word)
         return hard_word_list
 
-# def choose_level(prompt, options):
-#     while True: 
-#         try: 
-#             str__input = input(prompt)
-#             if str_input not in options: 
-#                 raise ValueError
-#             return_input
-#             except ValueError: 
-#                 print("input invalid")
-# input_option("choose a level: (e)asy or (h)ard?", ["e", "h"]) 
+def choose_level(prompt, options):
+    while True: 
+        try: 
+            str__input = input(prompt)
+            if str_input not in options: 
+                raise ValueError
+            return_input
+            except ValueError: 
+                print("input invalid")
+input_option("choose a level: (e)asy or (h)ard?", ["e", "h"]) 
 
 def myst_word_game():
    #store data here 
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     word = load_words()
     letters_guessed = []
-    tries = 10
+    tries = 50000
     guessed = False #this tells machine that game has not ended until words are solved or out of tries in status 
     
     print("the word contains", len(word), 'letters.')
@@ -63,7 +64,7 @@ def myst_word_game():
                 print('that letter is incorrect')
                 letters_guessed.append(guess)
                 tries -= 1
-            elif guess is word: #if guess is in the word "the letter guessed is added to letters guessed" UNDERSCORE NEEDS TO UPDATE SOMEHOW!
+            elif guess in word: #if guess is in the word "the letter guessed is added to letters guessed" UNDERSCORE NEEDS TO UPDATE SOMEHOW!
                 print ('letter is in word')
                 letters_guessed.append(guess)
             else: 
@@ -86,7 +87,7 @@ def myst_word_game():
                 if letter in letters_guessed: 
                     game_status += letter #this updates the status plus the letter
                 else: 
-                    game_status += '_' #this will keep the unsolved letters  as"_"
+                    game_status += ' _ ' #this will keep the unsolved letters  as"_"
             print(game_status)
         if game_status == word: #however if the word is solved then:
             print ('u win!')
