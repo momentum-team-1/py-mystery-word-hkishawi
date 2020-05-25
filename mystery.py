@@ -12,8 +12,8 @@ def load_words():
     for word in word_list:
         lowercase_words.append(word.lower())
     # print(random.choice(lowercase_words[:]))
-    # return random.choice(lowercase_words)
     return (lowercase_words)
+    # return (lowercase_words)
 
 #filter out easy words to use in level 1
 def easy_words():
@@ -22,23 +22,26 @@ def easy_words():
         if len(word) >= 2 and len(word) <= 6:
             easy_word_list.append(word)
             print(random.choice(easy_word_list[:]))
-        return random.choice(easy_word_list)
+    return random.choice(easy_word_list)
+ 
 
-# easy_words(load_words)
-# def hard_words(load_words):
-#     hard_word_list = []
-#     for word in load_words():
-#         if len(word) >= 7 and len(word) <=15:
-#             hard_word_list.append(word)
-#         return hard_word_list
+def hard_words():
+    hard_word_list = []
+    for word in load_words():
+        if len(word) >= 7:
+            hard_word_list.append(word)
+            print(random.choice(hard_word_list[:]))
+    return random.choice(hard_word_list)
 
-def choose_level(user_input):
+def choose_level():
     level = input("choose difficulty: (e)asy or (h)ard")
+    level = level.lower()
     if level == 'e':
-        answer = easy_words()
+        answer = random.choice(easy_words())
     elif level == 'h':
-        answer = hard_words()
+        answer = random.choice(hard_words())
     return answer
+choose_level()
 
 # def choose_level(prompt, options):
 #     while True: 
@@ -54,10 +57,17 @@ def choose_level(user_input):
 def myst_word_game():
    #store data here 
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
-    word = easy_words()
+    word = choose_level()
     letters_guessed = []
     tries = 5
     guessed = False #this tells machine that game has not ended until words are solved or out of tries in status 
+    # for word in word_list:
+
+    level = choose_level()
+    if level == 'e':
+        word = easy_words()
+    elif level == 'h': 
+        word = hard_words()
     
     print("the word contains", len(word), 'letters.')
     print(len(word) * " _ ") #the length of the word will be rep by _
